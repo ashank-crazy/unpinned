@@ -1,0 +1,8 @@
+node_modules/
+dist/
+public/vendor/
+*.tsbuildinfo
+.DS_Store
+coverage/
+.vite/
+.claude/

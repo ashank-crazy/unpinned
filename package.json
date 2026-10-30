@@ -1,0 +1,35 @@
+{
+  "name": "unpinned",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "See what a photo or screenshot gives away before you share it, then share a cleaner copy. Everything stays on your device.",
+  "license": "MIT",
+  "repository": "github:ashank-crazy/unpinned",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build && node scripts/build-sw.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "samples": "python3 scripts/make_samples.py && python3 scripts/make_assets.py",
+    "postinstall": "node scripts/copy-vendor.mjs"
+  },
+  "engines": {
+    "node": ">=22.12"
+  },
+  "dependencies": {
+    "@fontsource/atkinson-hyperlegible": "5.3.0",
+    "@tesseract.js-data/eng": "1.0.0",
+    "barcode-detector": "3.2.3",
+    "exifr": "7.1.3",
+    "tesseract.js": "7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "all-the-cities": "3.1.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.5",
+    "vitest": "5.0.5"
+  }
+}

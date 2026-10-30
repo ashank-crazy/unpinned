@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Unpinned · Check a photo before you share it</title>
+    <meta
+      name="description"
+      content="See what a photo or screenshot gives away, like where you took it or a cropped-out address, then share a safer copy. Nothing is uploaded."
+    />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f7f5f1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Unpinned home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <rect width="32" height="32" rx="9" />
+          <path class="pin" d="M16 25.5 10.54 17.02A6.5 6.5 0 1 1 21.46 17.02Z" />
+          <circle class="hole" cx="16" cy="13.5" r="2.6" />
+          <path class="cut" d="M7 7l18 18" />
+          <path class="slash" d="M7 7l18 18" />
+        </svg>
+        <span>Unpinned</span>
+      </a>
+      <nav class="site-nav" aria-label="About Unpinned">
+        <a href="#how">How it works</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#limits">Limits</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <div id="alert" class="alert" role="alert" hidden></div>
+
+      <section id="start" class="start" aria-labelledby="start-title">
+        <div class="hero">
+          <p class="eyebrow">Free · Nothing is uploaded · Works offline</p>
+          <h1 id="start-title">Check a photo before you share it.</h1>
+          <p class="lede">
+            Photos and screenshots can carry more than you meant to share: the exact spot you took them, a cropped-out
+            house number, a Wi-Fi password on the fridge. Unpinned shows you what is there in plain words, then makes a
+            safer copy. Your photo never leaves this device.
+          </p>
+        </div>
+
+        <div class="dropzone" id="dropzone">
+          <input id="file-input" class="visually-hidden" type="file" accept="image/*,.heic,.heif,.avif" tabindex="-1" aria-hidden="true" />
+          <button type="button" class="button primary large" id="choose-button">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 16V4M7 9l5-5 5 5M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4" />
+            </svg>
+            <span>Choose a photo or screenshot</span>
+          </button>
+          <p class="dropzone-hint">or drag it here, or paste it</p>
+          <p class="dropzone-small">JPEG, PNG, WebP, HEIC, or AVIF, up to 60 MB.</p>
+        </div>
+
+        <section class="samples" aria-labelledby="samples-title">
+          <h2 id="samples-title" class="samples-title">No photo handy? Try an example.</h2>
+          <p class="samples-note">The people, places, and numbers in these are made up.</p>
+          <ul class="sample-list">
+            <li>
+              <button class="sample" type="button" data-sample="desk-for-sale.jpg">
+                <img src="samples/thumbs/desk-for-sale.jpg" alt="" width="480" height="360" />
+                <span class="sample-text">
+                  <span class="sample-name">Selling a desk</span>
+                  <span class="sample-hint">Hidden GPS, and a preview that still shows the cropped-out door</span>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button class="sample" type="button" data-sample="boarding-pass.png">
+                <img src="samples/thumbs/boarding-pass.jpg" alt="" width="480" height="360" />
+                <span class="sample-text">
+                  <span class="sample-name">Boarding pass</span>
+                  <span class="sample-hint">The barcode holds the booking code</span>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button class="sample" type="button" data-sample="order-receipt.png">
+                <img src="samples/thumbs/order-receipt.jpg" alt="" width="480" height="360" />
+                <span class="sample-text">
+                  <span class="sample-name">Cropped receipt</span>
+                  <span class="sample-hint">The crop left the card number inside the file</span>
+                </span>
+              </button>
+            </li>
+          </ul>
+        </section>
+      </section>
+
+      <section id="workspace" class="workspace" aria-label="Photo check" hidden></section>
+
+      <div id="info" class="info">
+        <section class="info-section" aria-labelledby="looks-title">
+          <h2 id="looks-title">What Unpinned looks for</h2>
+          <div class="two-columns">
+            <div class="panel">
+              <h3>Hidden in the file</h3>
+              <p class="panel-note">Left out of your safer copy automatically.</p>
+              <ul class="ticks">
+                <li>The exact spot where you took it, and place names</li>
+                <li>The date, time, and time zone</li>
+                <li>Your phone or camera, and serial numbers</li>
+                <li>Hidden previews that can still show what you cropped out</li>
+                <li>Video clips attached to motion photos</li>
+                <li>Leftover data from before a crop (the “aCropalypse” bug)</li>
+                <li>Names, captions, and editing history with user names</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>Visible in the picture</h3>
+              <p class="panel-note">You choose what to cover with a solid box.</p>
+              <ul class="ticks">
+                <li>Addresses on mail, labels, and screenshots</li>
+                <li>Card, bank account, and Social Security numbers</li>
+                <li>Phone numbers, email addresses, and names</li>
+                <li>Booking, order, and account numbers</li>
+                <li>QR codes and barcodes: Wi-Fi passwords, boarding passes, two-step login setup codes, and locations</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="info-section" id="how" aria-labelledby="how-title">
+          <h2 id="how-title">How it works</h2>
+          <ol class="steps">
+            <li>
+              <h3>Add a photo</h3>
+              <p>It opens in this browser tab. Nothing is uploaded, and you don't need an account.</p>
+            </li>
+            <li>
+              <h3>See what it gives away</h3>
+              <p>Each finding says what it is and why it matters. Card and ID numbers are partly hidden on screen.</p>
+            </li>
+            <li>
+              <h3>Share a safer copy</h3>
+              <p>
+                Hidden details are left out, and what you pick is covered with a solid box. Then the copy is checked
+                again to show the details are gone.
+              </p>
+            </li>
+          </ol>
+        </section>
+
+        <section class="info-section" id="privacy" aria-labelledby="privacy-title">
+          <h2 id="privacy-title">Your photo stays with you</h2>
+          <ul class="ticks">
+            <li>No uploads, no accounts, no ads, no tracking, and no cookies.</li>
+            <li>
+              Text and barcode reading run inside your browser. The reading engine and its language data come from this
+              site, not from another company.
+            </li>
+            <li>Once you've checked a photo, it works without an internet connection. You can add it to your home screen, too.</li>
+            <li>
+              You can check: the page's security policy only allows it to connect back to this site to load its own
+              files. Your browser's developer tools will show every request it makes.
+            </li>
+          </ul>
+        </section>
+
+        <section class="info-section" id="limits" aria-labelledby="limits-title">
+          <h2 id="limits-title">What it can't do</h2>
+          <ul class="limits">
+            <li>
+              It can't recognize faces, house numbers on buildings, street signs, landmarks, license plates, or what is
+              in reflections and on screens. Draw your own covers over those.
+            </li>
+            <li>The text reader works in English, and it can miss small, blurry, angled, or handwritten text.</li>
+            <li>It can't take back a photo, or the details in it, once it has been shared.</li>
+            <li>
+              A clean copy can still be recognized by someone who knows the place, or matched with a reverse image
+              search.
+            </li>
+            <li>It is a privacy tool, not an emergency service. If you are in danger, call your local emergency number.</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>Unpinned is free and open source (MIT). Made for SafeSpace Hacks 2026.</p>
+      <details class="credits">
+        <summary>Credits</summary>
+        <ul>
+          <li>Metadata reading: exifr (MIT)</li>
+          <li>Text reading: tesseract.js and tesseract.js-core (Apache 2.0), English model from tessdata (Apache 2.0)</li>
+          <li>Barcode reading: barcode-detector and zxing-wasm (MIT), built on ZXing-C++ (Apache 2.0)</li>
+          <li>Town names: GeoNames (CC BY 4.0), through the all-the-cities package</li>
+          <li>Font: Atkinson Hyperlegible by the Braille Institute (SIL Open Font License)</li>
+          <li>Built with Vite, TypeScript, and Vitest, with help from Claude Code</li>
+        </ul>
+        <p>
+          <a href="https://github.com/ashank-crazy/unpinned">Source code</a> ·
+          <a href="https://github.com/ashank-crazy/unpinned/blob/main/THIRD_PARTY_NOTICES.md">Full license notices</a>
+        </p>
+      </details>
+    </footer>
+
+    <div id="drop-overlay" class="drop-overlay" hidden>
+      <p>Drop the photo to check it</p>
+    </div>
+    <div id="announcer" class="visually-hidden" aria-live="polite"></div>
+  </body>
+</html>

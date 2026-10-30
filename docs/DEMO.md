@@ -1,0 +1,18 @@
+# Demo video script (about 2 minutes 30 seconds)
+
+Record the live site at desktop width in light mode. Before recording, open the site once and check one example, so
+the text reader is cached and every step runs at full speed.
+
+| Time      | On screen                                                                                                       | Say                                                                                                                                                                                       |
+| --------- | --------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0:00–0:15 | The start page.                                                                                                 | "Say you're selling a desk online. You snap a photo, crop out your front door, and post it. Unpinned shows what that photo still gives away, before a stranger sees it."                |
+| 0:15–0:35 | Click **Selling a desk**. Point at the verdict, then open the first finding.                                    | "Everything runs in the browser; nothing is uploaded. The verdict comes first: don't share this one as it is. The file still holds where it was taken, in or near Chicago, accurate to under five meters." |
+| 0:35–0:55 | Scroll to **A hidden preview that shows more**.                                                                 | "This is the part people never expect. The file carries a small preview made before the crop. Here's the door and the house number you cut out."                                        |
+| 0:55–1:15 | Point at boxes 1 to 3 on the photo and the matching cards.                                                      | "It also reads the picture. The QR code on the wall holds the Wi-Fi password, and the envelope shows a name and address. Serious items are ticked to be covered."                      |
+| 1:15–1:25 | Click **Draw a cover** and drag over the lamp (or a spot you'd hide, like a face).                              | "Anything it can't spot, like a face or a house number on a building, you can cover yourself, with a mouse, touch, or the keyboard."                                                    |
+| 1:25–1:45 | Click **Make a safer copy**. Show the ticks. Click **Check the copy again**.                                    | "The copy leaves out every hidden detail and uses solid covers, not blur, which can be undone. Then it reads the copy again: all seven checks pass, and a fresh check finds nothing."   |
+| 1:45–2:00 | Back to the start. Open **Cropped receipt**, then **Boarding pass** and open "Show what the code says".         | "A cropped screenshot can keep the cropped-off part inside the file, and a boarding pass barcode gives away your name and booking code, enough to manage your trip on some airline sites." |
+| 2:00–2:15 | Turn on airplane mode and open an example again. Optionally show the Network tab: only this site's own files.  | "It works offline. A strict security policy blocks connections to other sites, and the text and barcode readers are served from the same site."                                        |
+| 2:15–2:30 | The "What it can't do" section.                                                                                 | "It can't recognize faces or landmarks, and it isn't an emergency service. But in a minute it shows people what their photo gives away, and hands them a safer copy."                  |
+
+Every name, address, and code in the examples is made up.
