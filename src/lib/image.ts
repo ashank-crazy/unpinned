@@ -47,11 +47,14 @@ function drawOriented(context: CanvasRenderingContext2D, image: CanvasImageSourc
   context.drawImage(image, 0, 0, width, height);
 }
 
-/** A tiny grayscale fingerprint of a picture, for comparing two versions. */
-function fingerprint(image: CanvasImageSource, width: number, height: number, orientation = 1): Float64Array {
+/** A tiny grayscale fingerprint of a picture, for comparing two versions. Covers are drawn first, as in a copy. */
+function fingerprint(image: CanvasImageSource, width: number, height: number, orientation = 1, covers: Box[] = []): Float64Array {
   const rotated = orientation >= 5;
   const full = createCanvas(rotated ? height : width, rotated ? width : height);
-  drawOriented(full.getContext('2d')!, image, width, height, orientation);
+  const fullContext = full.getContext('2d')!;
+  drawOriented(fullContext, image, width, height, orientation);
+  fullContext.fillStyle = '#111111';
+  for (const box of covers) fullContext.fillRect(box.x, box.y, box.w, box.h);
   const small = createCanvas(24, 24);
   const context = small.getContext('2d', { willReadFrequently: true })!;
   context.drawImage(full, 0, 0, 24, 24);
@@ -152,12 +155,15 @@ export async function renderWithCovers(bitmap: ImageBitmap, covers: Box[], type:
 
 /**
  * Some privacy settings (like Firefox's fingerprinting protection) quietly
- * change what a canvas saves. Compare the copy with the source so we can warn.
+ * change what a canvas saves. Compare the copy with the source, drawn with the
+ * same covers, so we can warn. Without the covers, a few large ones would look
+ * like a changed picture.
  */
-export async function looksLikeSource(copy: Blob, source: ImageBitmap): Promise<boolean> {
+export async function looksLikeSource(copy: Blob, source: ImageBitmap, covers: Box[] = []): Promise<boolean> {
   try {
     const decoded = await createImageBitmap(copy);
-    const similarity = correlation(fingerprint(decoded, decoded.width, decoded.height), fingerprint(source, source.width, source.height));
+    const expected = fingerprint(source, source.width, source.height, 1, covers);
+    const similarity = correlation(fingerprint(decoded, decoded.width, decoded.height), expected);
     decoded.close();
     return similarity > 0.6;
   } catch {

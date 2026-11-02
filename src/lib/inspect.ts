@@ -313,7 +313,7 @@ export async function makeSaferCopy(photo: Photo, covers: Box[]): Promise<SaferC
       throw new PhotoError(error instanceof Error ? error.message : 'This device could not save the picture.');
     });
     scale = rendered.scale;
-    looksRight = await looksLikeSource(rendered.blob, photo.bitmap);
+    looksRight = await looksLikeSource(rendered.blob, photo.bitmap, covers);
     const encoded = new Uint8Array(await rendered.blob.arrayBuffer());
     // A fresh canvas carries no metadata, but strip again in case a browser adds some.
     try {
